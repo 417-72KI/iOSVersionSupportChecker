@@ -17,7 +17,15 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "iOSVersionSupportChecker",
-            dependencies: []),
+            dependencies: [
+                "iOSVersionSupportCheckerCore",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ]
+        ),
+        .target(
+            name: "iOSVersionSupportCheckerCore",
+            dependencies: []
+        ),
         .testTarget(
             name: "iOSVersionSupportCheckerTests",
             dependencies: ["iOSVersionSupportChecker"]),
