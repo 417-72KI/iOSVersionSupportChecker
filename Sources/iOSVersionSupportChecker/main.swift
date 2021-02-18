@@ -9,6 +9,9 @@ struct iOSVersionSupportChecker: ParsableCommand {
     @Argument(help: "App ID includes in `https://apps.apple.com/jp/app/<app-title>/<here>`")
     var ids: [String] = []
 
+    @Option(name: .shortAndLong, help: "If set, calculate supporting rate of the minimum supporting version.")
+    var version: String?
+
     func run() throws {
         let mode: Mode
         if let file = file {
@@ -16,7 +19,7 @@ struct iOSVersionSupportChecker: ParsableCommand {
         } else {
             mode = .ids(ids)
         }
-        try Core.execute(mode: mode)
+        try Core.execute(mode: mode, version: version)
     }
 }
 

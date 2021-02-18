@@ -8,7 +8,7 @@ public enum Mode {
 public enum Core {}
 
 public extension Core {
-    static func execute(mode: Mode) throws {
+    static func execute(mode: Mode, version: String? = nil) throws {
         let result: [AppInfo]
         switch mode {
         case let .file(path):
@@ -24,13 +24,15 @@ public extension Core {
 
         result.forEach { print($0) }
 
-        let versions = result.map(\.minimumOsVersion)
-            .compactMap(Version.init)
-        let supportingOver13 = versions.filter { $0.major >= 13 }
+        if let version = version.flatMap(Version.init) {
+            let versions = result.map(\.minimumOsVersion)
+                .compactMap(Version.init)
+            let supporting = versions.filter { $0 >= version }
 
-        let supportingRate = Double(supportingOver13.count) / Double(versions.count) * 100
+            let supportingRate = Double(supporting.count) / Double(versions.count) * 100
 
-        print(String(format: "%.2f%% (%d / %d)", supportingRate, supportingOver13.count, versions.count))
+            print(String(format: "Supporting iOS \(version) as minimum: %.2f%% (%d / %d)", supportingRate, supporting.count, versions.count))
+        }
     }
 }
 
