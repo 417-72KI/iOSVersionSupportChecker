@@ -21,6 +21,7 @@ extension Version {
     }
 }
 
+// MARK: - ExpressibleByStringLiteral
 extension Version: ExpressibleByStringLiteral {
     init(stringLiteral value: StringLiteralType) {
         if let version = Self(value) {
@@ -29,4 +30,9 @@ extension Version: ExpressibleByStringLiteral {
             self.init(major: 0, minor: 0, patch: 0)
         }
     }
+}
+
+// MARK: - CustomStringConvertible
+extension Version: CustomStringConvertible {
+    var description: String { "\(major).\(minor).\(patch)" }
 }

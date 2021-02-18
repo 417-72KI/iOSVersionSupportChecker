@@ -17,12 +17,20 @@ public extension Core {
             result = try execute(ids: ids)
         }
 
-        let str = result.lazy
-            .map { ($0.trackName.truncate(length: 10), $0.minimumOsVersion) }
-            .map{ "|\t\($0.padding(length: 20))\t| \($1) |" }
-            .joined(separator: "\n")
+        guard !result.isEmpty else {
+            print("no apps to detect")
+            return
+        }
 
-        print(str)
+        result.forEach { print($0) }
+
+        let versions = result.map(\.minimumOsVersion)
+            .compactMap(Version.init)
+        let supportingOver13 = versions.filter { $0.major >= 13 }
+
+        let supportingRate = Double(supportingOver13.count) / Double(versions.count) * 100
+
+        print(String(format: "%.2f%% (%d / %d)", supportingRate, supportingOver13.count, versions.count))
     }
 }
 

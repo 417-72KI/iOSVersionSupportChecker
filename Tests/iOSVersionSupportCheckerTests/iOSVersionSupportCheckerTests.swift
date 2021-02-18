@@ -12,7 +12,7 @@ final class iOSVersionSupportCheckerTests: XCTestCase {
             return
         }
 
-        let fooBinary = productsDirectory.appendingPathComponent("iOSVersionSupportChecker")
+        let fooBinary = productsDirectory.appendingPathComponent("ivsc")
 
         let process = Process()
         process.executableURL = fooBinary
@@ -26,7 +26,7 @@ final class iOSVersionSupportCheckerTests: XCTestCase {
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
 
-        XCTAssertEqual(output, "Hello, world!\n")
+        XCTAssertEqual(output, "no apps to detect\n")
     }
 
     /// Returns path to the built products directory.
