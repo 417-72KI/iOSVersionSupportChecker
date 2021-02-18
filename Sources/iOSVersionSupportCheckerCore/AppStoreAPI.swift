@@ -1,6 +1,6 @@
 import Foundation
 
-let baseUrl = "https://itunes.apple.com/lookup?id=%@"
+let baseUrl = "https://itunes.apple.com/lookup?id=%@&country=JP"
 
 enum AppStoreAPI {
     static let semaphore = DispatchSemaphore(value: 0)
