@@ -30,4 +30,14 @@ final class VersionTests: XCTestCase {
         XCTAssertEqual(version.minor, 0)
         XCTAssertEqual(version.patch, 0)
     }
+
+    func testCompare() {
+        XCTAssertTrue(Version(major: 1, minor: 0, patch: 0) < "1.0.1")
+        XCTAssertTrue(Version(major: 1, minor: 0, patch: 0) < "1.1.0")
+        XCTAssertTrue(Version(major: 1, minor: 0, patch: 0) < "2.0.0")
+
+        XCTAssertTrue(Version(major: 13, minor: 0, patch: 0) == "13.0.0")
+        XCTAssertTrue(Version(major: 13, minor: 0, patch: 0) >= "13.0.0")
+        XCTAssertTrue(Version(major: 13, minor: 0, patch: 0) > "12.4.1")
+    }
 }

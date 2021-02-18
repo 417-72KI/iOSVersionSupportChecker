@@ -32,6 +32,20 @@ extension Version: ExpressibleByStringLiteral {
     }
 }
 
+// MARK: - Comparable
+extension Version: Comparable {
+    static func < (lhs: Version, rhs: Version) -> Bool {
+        switch (lhs.major == rhs.major, lhs.minor == rhs.minor) {
+        case (true, true):
+            return lhs.patch < rhs.patch
+        case (true, false):
+            return lhs.minor < rhs.minor
+        case (false, _):
+            return lhs.major < rhs.major
+        }
+    }
+}
+
 // MARK: - CustomStringConvertible
 extension Version: CustomStringConvertible {
     var description: String { "\(major).\(minor).\(patch)" }
