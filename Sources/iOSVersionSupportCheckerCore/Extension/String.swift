@@ -1,7 +1,7 @@
 import Foundation
 
 extension String {
-    /*
+    /**
      Truncates the string to the specified length number of characters and appends an optional trailing string if longer.
      - Parameter length: Desired maximum lengths of a string
      - Parameter trailing: A 'String' that will be appended after the truncation.
@@ -23,5 +23,10 @@ extension String {
             str += character
         }
         return str
+    }
+
+    /// A new string made by expanding the initial component of the receiver to its full path value.
+    var expandingTildeInPath: String {
+        (self as NSString).expandingTildeInPath
     }
 }

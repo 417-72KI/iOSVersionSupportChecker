@@ -38,6 +38,9 @@ public extension Core {
 
 extension Core {
     static func execute(filePath: String) throws -> [AppInfo] {
+        let filePath = filePath.expandingTildeInPath
+        guard FileManager.default.fileExists(atPath: filePath, isDirectory: nil) else { throw VSCError.fileNotExist(filePath) }
+        print(filePath)
         throw VSCError.notImplemented
     }
 
