@@ -40,8 +40,11 @@ extension Core {
     static func execute(filePath: String) throws -> [AppInfo] {
         let filePath = filePath.expandingTildeInPath
         guard FileManager.default.fileExists(atPath: filePath, isDirectory: nil) else { throw VSCError.fileNotExist(filePath) }
-        print(filePath)
-        throw VSCError.notImplemented
+        let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
+        let content = String(data: data, encoding: .utf8) ?? ""
+        let ids = content.split(separator: "\n")
+            .map(String.init)
+        return try execute(ids: ids)
     }
 
     static func execute(ids: [String]) throws -> [AppInfo] {
