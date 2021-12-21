@@ -14,6 +14,14 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Cache build directory
+      uses: actions/cache@v2
+      with:
+        path: .build
+        key: ${{ runner.os }}-swiftpm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-swiftpm-
+          ${{ runner.os }}-
     - name: Run Unit Test
       run: swift test
   linux:
@@ -22,5 +30,13 @@ jobs:
     container: swift:5.5
     steps:
     - uses: actions/checkout@v2
+    - name: Cache build directory
+      uses: actions/cache@v2
+      with:
+        path: .build
+        key: ${{ runner.os }}-swiftpm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-swiftpm-
+          ${{ runner.os }}-
     - name: Run Unit Test
       run: swift test
