@@ -1,5 +1,9 @@
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 let baseUrl = "https://itunes.apple.com/lookup?id=%@&country=JP"
 
 enum AppStoreAPI {
