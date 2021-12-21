@@ -1,0 +1,26 @@
+name: Unit Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - '**.swift'
+      - 'Package.resolved'
+      - '.github/workflows/unit_test.yml'
+jobs:
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Unit Test
+      run: swift test
+  linux:
+    name: Linux
+    runs-on: ubuntu-latest
+    container: swift:5.5
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Unit Test
+      run: swift test
